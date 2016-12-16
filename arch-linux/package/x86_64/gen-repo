@@ -1,4 +1,5 @@
 #!/bin/bash
+rm -rf dawidsoft*
 repo-add dawidsoft.db.tar.gz *.pkg.tar.xz
 rm -rf dawidsoft.db dawidsoft.files
 cp dawidsoft.db.tar.gz dawidsoft.db
