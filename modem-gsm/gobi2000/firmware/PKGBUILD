@@ -9,7 +9,7 @@ license=('custom')
 optdepends=('gobi-loader: for automatic firmare loading')
 url="http://www.thinkwiki.org/wiki/Qualcomm_Gobi_2000"
 options=("!strip")
-source=('https://github.com/dawidsoft/linux/tree/master/modem-gsm/gobi2000/firmware/gobi/amss.mbn' 'https://github.com/dawidsoft/linux/tree/master/modem-gsm/gobi2000/firmware/gobi/apps.mbn' 'https://github.com/dawidsoft/linux/tree/master/modem-gsm/gobi2000/firmware/gobi/UQCN.mbn')
+source=('https://github.com/dawidsoft/linux/raw/master/modem-gsm/gobi2000/firmware/gobi/amss.mbn' 'https://github.com/dawidsoft/linux/raw/master/modem-gsm/gobi2000/firmware/gobi/apps.mbn' 'https://github.com/dawidsoft/linux/raw/master/modem-gsm/gobi2000/firmware/gobi/UQCN.mbn')
 sha256sums=('18d161dc5e9db5e795b1f1026e47d0590b6cc0ed9bef824ac0c4b771b529c364'
             'cd7d9adaccf59f02b3bc8261334ed83c7644fbdbf697055189533467d6c882b2'
             '00230ccd0fc729ac97fa407361ff0133a3e38e8fe3a53aeffc4b73bb8b1afd6a')
