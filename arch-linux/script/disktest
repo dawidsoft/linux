@@ -1,0 +1,17 @@
+#!/bin/bash
+dd if=/dev/urandom bs=1M count=1 of=somerandom
+for i in $(seq 1 1000) 
+do
+    thisblock=$(shuf -i 0-63999 -n 1)
+    sudo dd if=somerandom of=/dev/mmcblk0 bs=1M seek=$thisblock
+    sudo sync
+    sudo dd if=/dev/mmcblk0 skip=$thisblock bs=1M count=1 | diff - somerandom
+    if [ $? == 1 ]
+    then
+        echo "bad"
+        echo $thisblock >> badblocks
+    else
+        echo "good"
+        echo $thisblock >> goodblocks
+    fi
+done

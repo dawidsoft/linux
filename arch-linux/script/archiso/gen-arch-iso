@@ -1,0 +1,9 @@
+#!/bin/bash
+# sudo pacman -S --noconfirm arch-install-scripts archiso
+mkdir -p archlive
+cp -r /usr/share/archiso/configs/releng/* archlive
+cp -r adamo bios-2 lxde ./archlive/airootfs/root
+chmod 777 ./archlive/airootfs/root/*
+cd archlive
+# sed -i '/truncate/s/64M/128M/' build.sh
+sudo ./build.sh -v

@@ -1,0 +1,18 @@
+#!/bin/bash
+#mkdir -p /tmp/aur/
+#sudo rm -rf /var/lib/pacman/sync/dawidsoft.db
+#yaourt -Sb --export /tmp/aur/ google-chrome pepper-flash chromium-widevine --noconfirm
+#cp -r /tmp/aur/*.pkg.tar.xz ~/github/linux/arch-linux/package/x86_64/
+#rm -rf /tmp/aur/
+cd ~/github/linux/arch-linux/package/x86_64/
+rm -rf dawidsoft*
+repo-add dawidsoft.db.tar.gz *.pkg.tar.xz
+rm -rf dawidsoft.db dawidsoft.files
+cp dawidsoft.db.tar.gz dawidsoft.db
+cp dawidsoft.files.tar.gz dawidsoft.files
+cd ~/github/linux/
+git add *
+git commit -m "first commit"
+git push -u origin master
+cd ~/
+sudo pacman -Syyu --noconfirm
