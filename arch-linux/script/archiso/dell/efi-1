@@ -1,0 +1,20 @@
+#!/bin/bash
+
+umount -l /mnt
+mkfs.fat /dev/sdc1
+mkfs.btrfs -f /dev/sdc2
+mkfs.btrfs -f /dev/sdc3
+mkfs.btrfs -d raid0 -m raid0 /dev/sd[ab] -f
+mount -o ssd,noatime,nodiratime /dev/sdc3 /mnt
+mkdir -p /mnt/boot
+mkdir -p /mnt/home
+mount -o ssd,noatime,nodiratime /dev/sdc2 /mnt/boot
+mount -o ssd,noatime,nodiratime /dev/sda /mnt/home
+mkdir -p /mnt/boot/efi
+mount /dev/sdc1 /mnt/boot/efi
+pacstrap /mnt base base-devel linux-lts linux-lts-headers linux-headers memtest86+ grub os-prober efibootmgr efitools btrfs-progs net-tools netctl dialog wpa_supplicant wpa_actiond usb_modeswitch wget smartmontools gdisk fio
+genfstab -U -p /mnt >> /mnt/etc/fstab
+cp -r ~/efi-2 lxde /mnt/root/
+arch-chroot /mnt ~/efi-2
+umount -R /mnt
+systemctl poweroff

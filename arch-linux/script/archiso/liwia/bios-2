@@ -1,0 +1,17 @@
+#!/bin/bash
+# uprawnienia systemu i uzytkownicy
+passwd -l root
+# groupadd autologin
+groupadd vboxusers
+groupadd lpadmin
+groupadd sudo
+sed -i '/%wheel/a %wheel ALL=(ALL) ALL' /etc/sudoers
+sed -i '/%sudo/a %sudo ALL=(ALL) ALL' /etc/sudoers
+useradd -m -g users -G audio,disk,network,optical,power,storage,video,rfkill,sudo,lp,lpadmin,scanner,vboxusers,uucp,wheel -s /bin/bash liwia
+passwd -d liwia
+mkinitcpio -p
+grub-install --recheck /dev/sda
+grub-mkconfig -o /boot/grub/grub.cfg
+#systemctl enable dhcpcd
+chmod -R 777 /root/*
+cp -r /root/lxde /home/liwia/

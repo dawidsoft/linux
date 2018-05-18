@@ -1,12 +1,25 @@
 #!/bin/bash
 mkdir -p /tmp/aur/
 sudo rm -rf /var/lib/pacman/sync/dawidsoft.db
-yaourt -Sb --export /tmp/aur/ photoprint --noconfirm
-# yaourt -Sb --export /tmp/aur/ google-chrome --noconfirm
+#yaourt -Sb --export /tmp/aur/ inxi --noconfirm
+#yaourt -Sb --export /tmp/aur/ ch341eepromtool ch341prog-git i2c-ch341-dkms --noconfirm
+#yaourt -Sb --export /tmp/aur/ skypeforlinux-stable-bin --noconfirm
+#yaourt -Sb --export /tmp/aur/ photoprint --noconfirm
+#yaourt -Sb --export /tmp/aur/ skype --noconfirm
+#yaourt -Sb --export /tmp/aur/ gnurobbo --noconfirm
+#yaourt -Sb --export /tmp/aur/ samsung-unified-driver --noconfirm
+#yaourt -Sb --export /tmp/aur/ logmein-hamachi --noconfirm
+yaourt -Sb --export /tmp/aur/ google-chrome --noconfirm
 #yaourt -Sb --export /tmp/aur/ virtualbox-ext-oracle --noconfirm
 #yaourt -Sb --export /tmp/aur/ haguichi chromium-widevine --noconfirm
+#rm -rf ~/github/linux/arch-linux/package/x86_64/skypeforlinux-stable-bin*
+#rm -rf ~/github/linux/arch-linux/package/x86_64/photoprint*
+#rm -rf ~/github/linux/arch-linux/package/x86_64/skype*
+#rm -rf ~/github/linux/arch-linux/package/x86_64/gnurobbo*
+#rm -rf ~/github/linux/arch-linux/package/x86_64/logmein-hamachi*
 #rm -rf ~/github/linux/arch-linux/package/x86_64/virtualbox-ext-oracle*
-# rm -rf ~/github/linux/arch-linux/package/x86_64/google-chrome*
+#rm -rf ~/github/linux/arch-linux/package/x86_64/samsung-unified-driver*
+rm -rf ~/github/linux/arch-linux/package/x86_64/google-chrome*
 cp -r /tmp/aur/*.pkg.tar.xz ~/github/linux/arch-linux/package/x86_64/
 rm -rf /tmp/aur/
 cd ~/github/linux/arch-linux/package/x86_64/
@@ -20,4 +33,4 @@ git add *
 git commit -m "first commit"
 git push -u origin master
 cd ~/
-sudo pacman -Syyu --noconfirm
+sudo pacman -Syy --noconfirm

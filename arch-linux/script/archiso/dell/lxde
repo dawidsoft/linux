@@ -1,0 +1,133 @@
+#!/bin/bash
+sudo ln -sf /usr/lib/libnetpbm.so /usr/lib/libnetpbm.so.10
+sudo ln -sf /usr/lib/libreadline.so.7 /usr/lib/libreadline.so.6
+# sudo ln -sf /usr/lib32/libssl.so /usr/lib32/libssl.so.1.0.0
+# sudo ln -sf /usr/lib32/libcrypto.so /usr/lib32/libcrypto.so.1.0.0
+
+rm -rf .cache
+ln -sf /tmp .cache
+# sudo rm -rf /var/cache/pacman/pkg
+# sudo ln -sf /tmp /var/cache/pacman/pkg
+
+# konfiguracja pacmana
+sudo sed -i '$a [multilib]' /etc/pacman.conf
+sudo sed -i '$a Include = /etc/pacman.d/mirrorlist' /etc/pacman.conf
+sudo sed -i '$a [dawidsoft]' /etc/pacman.conf
+sudo sed -i '$a SigLevel = Never' /etc/pacman.conf
+sudo sed -i '$a Server = https://github.com/dawidsoft/linux/raw/master/arch-linux/package/$arch' /etc/pacman.conf
+sudo pacman -Sy archlinux-keyring --noconfirm
+sudo pacman -Syyu --noconfirm
+
+# instalacja serwera xorg
+sudo pacman -S --noconfirm xorg xf86-video-intel xf86-input-evdev xf86-input-synaptics ttf-dejavu ttf-liberation mesa-vdpau lib32-mesa-vdpau
+sudo pacman -S --noconfirm nvidia-lts lib32-nvidia-utils nvidia-settings
+
+# instalacja lxde surowe i siec
+sudo pacman -S --noconfirm lxde gnome-keyring network-manager-applet networkmanager networkmanager-openvpn modemmanager leafpad blueman arc-gtk-theme gnome-themes-standard
+sudo pacman -S --noconfirm gvfs gvfs-nfs gvfs-mtp gvfs-afc gvfs-gphoto2 gvfs-smb gvfs-google cups xscreensaver gnome-screenshot oxygen-icons openvpn openssh nmap
+
+# pozastale wymagane pakiety lxde
+sudo pacman -S --noconfirm lib32-libcanberra lib32-alsa-plugins lib32-gtk2 lib32-libcups
+sudo pacman -S --noconfirm lxshortcut galculator obconf xfce4-notifyd gnome-disk-utility hardinfo git subversion sshfs obexfs hdparm 
+sudo pacman -S --noconfirm xfce4-power-manager firefox-i18n-pl vlc kodi qt4 audacious ghex evince samba brasero youtube-dl pingus
+sudo pacman -S --noconfirm pulseaudio pulseaudio-alsa pavucontrol catfish gthumb wammu libreoffice-fresh-pl sopcast gksu inxi
+sudo pacman -S --noconfirm zip unzip unrar ntfsprogs p7zip chromium gparted file-roller simple-scan system-config-printer libusb-compat
+sudo pacman -S --noconfirm flashplugin gtk-engines gtk-engine-murrine cpio zenity bash-completion gnome-system-monitor screenfetch mc
+sudo pacman -S --noconfirm xdg-user-dirs xdg-user-dirs-gtk gucharmap ffmpegthumbnailer tumbler libgsf raw-thumbnailer pulseaudio-bluetooth
+sudo pacman -S --noconfirm virtualbox virtualbox-ext-oracle virtualbox-guest-iso virtualbox-host-dkms vinagre x11vnc pepper-flash
+# winetricks comctl32
+# winetricks vb6run
+
+# usuniecie lxmusic
+sudo pacman -Rns --noconfirm lxmusic
+
+# life CD
+sudo pacman -S --noconfirm arch-install-scripts archiso
+
+# instalacja wine
+sudo pacman -S --noconfirm wine-staging wine_gecko wine-mono winetricks playonlinux
+sudo pacman -S --noconfirm lib32-mesa lib32-alsa-lib lib32-libpulse lib32-openal
+sudo pacman -S --noconfirm lib32-libxml2 lib32-mpg123 lib32-lcms2 lib32-giflib lib32-libpng lib32-gnutls
+
+# pakiety do kompilacji
+sudo pacman -S --noconfirm subversion asciidoc bash bc binutils bzip2 fastjar flex git gcc util-linux gawk intltool zlib make ncurses
+sudo pacman -S --noconfirm openssl patch perl-extutils-makemaker rsync sdcc unzip wget gettext libxslt boost libusb bin86 sharutils
+sudo pacman -S --noconfirm b43-fwcutter findutils asciidoc mercurial
+
+# AUR od dawidsoft github
+sudo pacman -S --noconfirm aic94xx-firmware atari800 downgrade f3 gigolo gnome-exe-thumbnailer gnurobbo gobi-firmware gobi-loader google-chrome yaourt
+sudo pacman -S --noconfirm lxdm-themes pa-applet-git package-query n2n-git haguichi logmein-hamachi sopcast-player ttf-ms-fonts wd719x-firmware skype
+
+# ustawienia systemu
+sudo sed -i '$a en_US.UTF-8 UTF-8' /etc/locale.gen
+sudo sed -i '$a pl_PL.UTF-8 UTF-8' /etc/locale.gen
+sudo locale-gen
+sudo hostnamectl set-hostname DELL-m6700
+sudo localectl set-locale LANG="pl_PL.UTF-8"
+sudo localectl set-keymap pl
+sudo localectl set-x11-keymap pl
+sudo timedatectl set-timezone Europe/Warsaw
+sudo timedatectl set-ntp true
+sudo sed -i '/autologin=dgod/a autologin=dell' /etc/lxdm/lxdm.conf
+sudo sed -i 's/SystemGroup sys root/SystemGroup lpadmin/g' /etc/cups/cups-files.conf
+sudo sed -i '/MAKEFLAGS/a MAKEFLAGS="-j5"' /etc/makepkg.conf
+
+# uruchomienie uslug przy starcie
+sudo systemctl disable dhcpcd.service
+sudo systemctl enable lxdm.service
+sudo systemctl enable NetworkManager.service
+sudo systemctl enable ModemManager.service
+sudo systemctl enable bluetooth.service
+sudo systemctl enable org.cups.cupsd.socket
+sudo systemctl enable sshd.socket
+
+mkdir -p .config/lxsession/LXDE
+echo "@lxpanel --profile LXDE" > .config/lxsession/LXDE/autostart
+echo "@pcmanfm --desktop --profile LXDE" >> .config/lxsession/LXDE/autostart
+echo "@xscreensaver -no-splash" >> .config/lxsession/LXDE/autostart
+echo "@pa-applet" >> .config/lxsession/LXDE/autostart
+echo "@rfkill unblock all" >> .config/lxsession/LXDE/autostart
+# echo "@skype" >> .config/lxsession/LXDE/autostart
+
+sudo cp /usr/share/applications/xfce4-notifyd-config.desktop /usr/share/applications/lxde-notifyd-config.desktop
+sudo sed -i '/OnlyShowIn=XFCE;/a OnlyShowIn=LXDE;' /usr/share/applications/lxde-notifyd-config.desktop
+
+# sudo cp /usr/share/applications/chromium.desktop /usr/share/applications/chrom.desktop
+# sudo sed -i '/Icon=chromium/a Icon=web-browser' /usr/share/applications/chrom.desktop
+
+sudo sed -i '1w /usr/share/applications/atari800.desktop' /usr/share/applications/ghex.desktop
+sudo sed -i '$a Comment=atari800 emulator' /usr/share/applications/atari800.desktop
+sudo sed -i '$a Exec=atari800' /usr/share/applications/atari800.desktop
+sudo sed -i '$a Icon=input-keyboard' /usr/share/applications/atari800.desktop
+sudo sed -i '$a Type=Application' /usr/share/applications/atari800.desktop
+sudo sed -i '$a Name=ATARI800' /usr/share/applications/atari800.desktop
+sudo sed -i '$a GenericName=ATARI800' /usr/share/applications/atari800.desktop
+sudo sed -i '$a Categories=Game;' /usr/share/applications/atari800.desktop
+
+sudo sed -i '1w /usr/share/applications/lxdm-config.desktop' /usr/share/applications/ghex.desktop
+sudo sed -i '$a Comment=lxdm-config' /usr/share/applications/lxdm-config.desktop
+sudo sed -i '$a Exec=gksudo lxdm-config' /usr/share/applications/lxdm-config.desktop
+sudo sed -i '$a Icon=preferences-desktop' /usr/share/applications/lxdm-config.desktop
+sudo sed -i '$a Type=Application' /usr/share/applications/lxdm-config.desktop
+sudo sed -i '$a Name=lxdm-config' /usr/share/applications/lxdm-config.desktop
+sudo sed -i '$a GenericName=lxdm-config' /usr/share/applications/lxdm-config.desktop
+sudo sed -i '$a Categories=GTK;Settings;DesktopSettings;X-LXDE-Settings;' /usr/share/applications/lxdm-config.desktop
+sudo sed -i '$a OnlyShowIn=LXDE;' /usr/share/applications/lxdm-config.desktop
+
+sudo sed -i '1w /usr/share/applications/system-update.desktop' /usr/share/applications/ghex.desktop
+sudo sed -i '$a Comment=aktualizacja systemu' /usr/share/applications/system-update.desktop
+sudo sed -i '$a Exec=lxterminal -e sudo pacman -Syyu --force --noconfirm' /usr/share/applications/system-update.desktop
+sudo sed -i '$a Icon=web-browser' /usr/share/applications/system-update.desktop
+sudo sed -i '$a Type=Application' /usr/share/applications/system-update.desktop
+sudo sed -i '$a Name=Aktualizacja' /usr/share/applications/system-update.desktop
+sudo sed -i '$a Categories=GTK;System;' /usr/share/applications/system-update.desktop
+
+mkdir -p .config/autostart
+# echo "[Desktop Entry]" > .config/autostart/pa-applet-autostart.desktop
+# echo "Type=Application" >> .config/autostart/pa-applet-autostart.desktop
+# echo "Name=Autostart pa-applet" >> .config/autostart/pa-applet-autostart.desktop
+# echo "Exec=sh -c 'pa-applet'" >> .config/autostart/pa-applet-autostart.desktop
+# echo "OnlyShowIn=LXDE" >> .config/autostart/pa-applet-autostart.desktop
+
+rm -rf lxde
+systemctl poweroff

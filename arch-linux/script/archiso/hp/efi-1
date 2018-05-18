@@ -1,0 +1,16 @@
+#!/bin/bash
+
+umount -l /mnt
+mkfs.ext4 /dev/sda2
+mkfs.ext4 /dev/sda3
+mount /dev/sda2 /mnt
+mkdir -p /mnt/home
+mkdir -p /mnt/boot/efi
+mount /dev/sda3 /mnt/home
+mount /dev/sda1 /mnt/boot/efi
+pacstrap /mnt base base-devel linux-lts linux-lts-headers linux-headers memtest86+ grub os-prober btrfs-progs net-tools netctl dialog wpa_supplicant wpa_actiond usb_modeswitch wget smartmontools
+genfstab -U -p /mnt >> /mnt/etc/fstab
+cp -r /root/efi-2 lxde /mnt/root/
+arch-chroot /mnt ./root/efi-2
+umount -R /mnt
+reboot

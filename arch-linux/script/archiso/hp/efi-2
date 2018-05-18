@@ -1,0 +1,19 @@
+#!/bin/bash
+# uprawnienia systemu i uzytkownicy
+passwd -l root
+groupadd vboxusers
+groupadd lpadmin
+groupadd sudo
+sed -i '/%wheel/a %wheel ALL=(ALL) ALL' /etc/sudoers
+sed -i '/%sudo/a %sudo ALL=(ALL) ALL' /etc/sudoers
+useradd -m -g users -G audio,disk,network,optical,power,storage,video,rfkill,sudo,lp,lpadmin,scanner,vboxusers,uucp,wheel -s /bin/bash hp
+passwd -d hp
+mkinitcpio -p linux-lts
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=arch --recheck
+grub-install --force /dev/sda
+grub-mkconfig -o /boot/grub/grub.cfg
+mkdir -p /boot/efi/EFI/Microsoft/Boot
+cp /boot/efi/EFI/arch/grubx64.efi /boot/efi/EFI/Microsoft/Boot/bootmgfw.efi
+systemctl enable dhcpcd
+chmod -R 777 /root/*
+cp -r /root/lxde /home/hp/

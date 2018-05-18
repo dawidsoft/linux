@@ -1,0 +1,5 @@
+#!/bin/bash
+cp -r /mnt/* /root/
+chmod -R 777 /root/*
+cd /root/
+./bios-1
