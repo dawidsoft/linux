@@ -52,7 +52,7 @@ sudo pacman -S --noconfirm openssl patch perl-extutils-makemaker rsync sdcc unzi
 sudo pacman -S --noconfirm b43-fwcutter findutils asciidoc mercurial
 
 # AUR od dawidsoft github
-sudo pacman -S --noconfirm aic94xx-firmware atari800 downgrade f3 gigolo gnome-exe-thumbnailer gnurobbo gobi-firmware gobi-loader google-chrome yaourt samsung-unified-driver
+sudo pacman -S --noconfirm aic94xx-firmware atari800 downgrade f3 gigolo gnome-exe-thumbnailer gnurobbo gobi-firmware gobi-loader google-chrome yaourt samsung-unified-driver lib32-gperftools
 sudo pacman -S --noconfirm lxdm-themes pa-applet-git package-query n2n-git haguichi logmein-hamachi sopcast-player ttf-ms-fonts wd719x-firmware skypeforlinux-stable-bin photoprint
 
 # ustawienia systemu
