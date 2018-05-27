@@ -2,7 +2,8 @@
 # sudo pacman -S --noconfirm arch-install-scripts archiso
 mkdir -p archlive
 cp -r /usr/share/archiso/configs/releng/* archlive
-cp -r hp8770w/* ./archlive/airootfs/root
+cp -r hp640g1/* ./archlive/airootfs/root
+#cp -r hp8770w/* ./archlive/airootfs/root
 #cp -r hp8470p/* ./archlive/airootfs/root
 #cp -r adamo/* ./archlive/airootfs/root
 #cp -r dell/* ./archlive/airootfs/root
@@ -15,3 +16,5 @@ cp -r /etc/pacman.d/mirrorlist airootfs/etc/pacman.d/
 sed -i '/curl/s/all/PL/' build.sh
 #sed -i '/truncate/s/64M/128M/' build.sh
 sudo ./build.sh -v
+cp -r ./out/* ~/
+sudo rm -rf archlive

@@ -1,8 +1,4 @@
 #!/bin/bash
-sudo ln -sf /usr/lib/libnetpbm.so /usr/lib/libnetpbm.so.10
-sudo ln -sf /usr/lib/libreadline.so.7 /usr/lib/libreadline.so.6
-# sudo ln -sf /usr/lib32/libssl.so /usr/lib32/libssl.so.1.0.0
-# sudo ln -sf /usr/lib32/libcrypto.so /usr/lib32/libcrypto.so.1.0.0
 
 rm -rf .cache
 ln -sf /tmp .cache
@@ -21,6 +17,7 @@ sudo pacman -Syyu --noconfirm
 # instalacja serwera xorg
 sudo pacman -S --noconfirm xorg xf86-video-intel xf86-input-evdev xf86-input-synaptics ttf-dejavu ttf-liberation mesa-vdpau lib32-mesa-vdpau
 # sudo pacman -S --noconfirm nvidia-lts lib32-nvidia-utils nvidia-settings
+# sudo pacman -S --noconfirm xf86-video-amdgpu xf86-video-ati
 
 # instalacja lxde surowe i siec
 sudo pacman -S --noconfirm lxde gnome-keyring network-manager-applet networkmanager networkmanager-openvpn modemmanager leafpad blueman arc-gtk-theme gnome-themes-standard
@@ -56,13 +53,13 @@ sudo pacman -S --noconfirm b43-fwcutter findutils asciidoc mercurial
 
 # AUR od dawidsoft github
 sudo pacman -S --noconfirm aic94xx-firmware atari800 downgrade f3 gigolo gnome-exe-thumbnailer gnurobbo gobi-firmware gobi-loader google-chrome yaourt samsung-unified-driver lib32-gperftools
-sudo pacman -S --noconfirm lxdm-themes pa-applet-git package-query n2n-git haguichi logmein-hamachi sopcast-player ttf-ms-fonts wd719x-firmware skypeforlinux-stable-bin
+sudo pacman -S --noconfirm lxdm-themes pa-applet-git package-query n2n-git haguichi logmein-hamachi sopcast-player ttf-ms-fonts wd719x-firmware skypeforlinux-stable-bin photoprint
 
 # ustawienia systemu
 sudo sed -i '$a en_US.UTF-8 UTF-8' /etc/locale.gen
 sudo sed -i '$a pl_PL.UTF-8 UTF-8' /etc/locale.gen
 sudo locale-gen
-sudo hostnamectl set-hostname HP-640-G1
+sudo hostnamectl set-hostname HP-640-g1
 sudo localectl set-locale LANG="pl_PL.UTF-8"
 sudo localectl set-keymap pl
 sudo localectl set-x11-keymap pl
@@ -70,7 +67,7 @@ sudo timedatectl set-timezone Europe/Warsaw
 sudo timedatectl set-ntp true
 sudo sed -i '/autologin=dgod/a autologin=hp' /etc/lxdm/lxdm.conf
 sudo sed -i 's/SystemGroup sys root/SystemGroup lpadmin/g' /etc/cups/cups-files.conf
-sudo sed -i '/MAKEFLAGS/a MAKEFLAGS="-j5"' /etc/makepkg.conf
+sudo sed -i '/MAKEFLAGS/a MAKEFLAGS="-j3"' /etc/makepkg.conf
 
 # uruchomienie uslug przy starcie
 sudo systemctl disable dhcpcd.service
@@ -87,6 +84,8 @@ echo "@pcmanfm --desktop --profile LXDE" >> .config/lxsession/LXDE/autostart
 echo "@xscreensaver -no-splash" >> .config/lxsession/LXDE/autostart
 echo "@pa-applet" >> .config/lxsession/LXDE/autostart
 echo "@rfkill unblock all" >> .config/lxsession/LXDE/autostart
+echo "@synclient TapButton1=1" >> .config/lxsession/LXDE/autostart
+echo "@synclient TapButton2=3" >> .config/lxsession/LXDE/autostart
 # echo "@skype" >> .config/lxsession/LXDE/autostart
 
 sudo cp /usr/share/applications/xfce4-notifyd-config.desktop /usr/share/applications/lxde-notifyd-config.desktop
@@ -128,6 +127,11 @@ mkdir -p .config/autostart
 # echo "Name=Autostart pa-applet" >> .config/autostart/pa-applet-autostart.desktop
 # echo "Exec=sh -c 'pa-applet'" >> .config/autostart/pa-applet-autostart.desktop
 # echo "OnlyShowIn=LXDE" >> .config/autostart/pa-applet-autostart.desktop
+
+sudo ln -sf /usr/lib/libnetpbm.so /usr/lib/libnetpbm.so.10
+sudo ln -sf /usr/lib/libreadline.so.7 /usr/lib/libreadline.so.6
+sudo ln -sf /usr/lib32/libssl.so /usr/lib32/libssl.so.1.0.0
+sudo ln -sf /usr/lib32/libcrypto.so /usr/lib32/libcrypto.so.1.0.0
 
 rm -rf lxde
 systemctl poweroff

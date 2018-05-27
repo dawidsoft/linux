@@ -7,7 +7,7 @@ mkfs.btrfs -f /dev/sda2
 mount -o ssd,noatime,nodiratime /dev/sda2 /mnt
 mkdir -p /mnt/boot
 mkdir -p /mnt/home
-#mount -o ssd,noatime,nodiratime /dev/sdb /mnt/home/hp/ssd
+#mount -o ssd,noatime,nodiratime /dev/sdb /mnt/home/liwia/ssd
 mkdir -p /mnt/boot/efi
 mount /dev/sda1 /mnt/boot/efi
 mount -o ssd,noatime,nodiratime /dev/sda3 /mnt/home

@@ -1,0 +1,6 @@
+#!/bin/bash
+# sudo pacman -S --noconfirm arch-install-scripts archiso
+cp -r ~/github/linux/arch-linux/script/archiso /tmp/archiso
+cd /tmp/archiso
+./gen-arch-iso
+sudo rm -rf /tmp/archiso
