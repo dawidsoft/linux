@@ -32,6 +32,7 @@ sudo pacman -S --noconfirm zip unzip unrar ntfsprogs p7zip chromium gparted file
 sudo pacman -S --noconfirm flashplugin gtk-engines gtk-engine-murrine cpio zenity bash-completion gnome-system-monitor screenfetch mc
 sudo pacman -S --noconfirm xdg-user-dirs xdg-user-dirs-gtk gucharmap ffmpegthumbnailer tumbler libgsf raw-thumbnailer pulseaudio-bluetooth
 sudo pacman -S --noconfirm virtualbox virtualbox-ext-oracle virtualbox-guest-iso virtualbox-host-dkms vinagre x11vnc pepper-flash
+sudo pacman -S --noconfirm seamonkey uget gst-plugins-base gst-plugins-bad gst-plugins-good gst-plugins-ugly
 # winetricks comctl32
 # winetricks vb6run
 
