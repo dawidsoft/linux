@@ -15,7 +15,7 @@ sudo pacman -Sy archlinux-keyring --noconfirm
 sudo pacman -Syyu --noconfirm
 
 # instalacja serwera xorg
-sudo pacman -S --noconfirm xorg xf86-video-intel xf86-input-evdev xf86-input-synaptics ttf-dejavu ttf-liberation mesa-vdpau lib32-mesa-vdpau
+sudo pacman -S --noconfirm xorg xf86-video-intel xf86-input-evdev xf86-input-synaptics ttf-dejavu ttf-liberation mesa-vdpau lib32-mesa-vdpau intel-ucode broadcom-wl-dkms
 # sudo pacman -S --noconfirm nvidia-lts lib32-nvidia-utils nvidia-settings
 # sudo pacman -S --noconfirm xf86-video-amdgpu xf86-video-ati
 
@@ -46,6 +46,7 @@ sudo pacman -S --noconfirm arch-install-scripts archiso
 sudo pacman -S --noconfirm wine-staging wine_gecko wine-mono winetricks playonlinux
 sudo pacman -S --noconfirm lib32-mesa lib32-alsa-lib lib32-libpulse lib32-openal
 sudo pacman -S --noconfirm lib32-libxml2 lib32-mpg123 lib32-lcms2 lib32-giflib lib32-libpng lib32-gnutls
+sudo pacman -S --noconfirm lib32-v4l-utils opencl-icd-loader lib32-opencl-icd-loader lib32-gst-plugins-base-libs dosbox
 
 # pakiety do kompilacji
 sudo pacman -S --noconfirm subversion asciidoc bash bc binutils bzip2 fastjar flex git gcc util-linux gawk intltool zlib make ncurses
@@ -92,6 +93,9 @@ echo "@synclient TapButton2=3" >> .config/lxsession/LXDE/autostart
 sudo cp /usr/share/applications/xfce4-notifyd-config.desktop /usr/share/applications/lxde-notifyd-config.desktop
 sudo sed -i '/OnlyShowIn=XFCE;/a OnlyShowIn=LXDE;' /usr/share/applications/lxde-notifyd-config.desktop
 
+sudo cp /usr/share/X11/xorg.conf.d/40-libinput.conf /etc/X11/xorg.conf.d/40-libinput.conf
+sudo sed -i '20s/libinput/synaptics/' /etc/X11/xorg.conf.d/40-libinput.conf
+
 # sudo cp /usr/share/applications/chromium.desktop /usr/share/applications/chrom.desktop
 # sudo sed -i '/Icon=chromium/a Icon=web-browser' /usr/share/applications/chrom.desktop
 
@@ -116,7 +120,7 @@ sudo sed -i '$a OnlyShowIn=LXDE;' /usr/share/applications/lxdm-config.desktop
 
 sudo sed -i '1w /usr/share/applications/system-update.desktop' /usr/share/applications/ghex.desktop
 sudo sed -i '$a Comment=aktualizacja systemu' /usr/share/applications/system-update.desktop
-sudo sed -i '$a Exec=lxterminal -e sudo pacman -Syyu --force --noconfirm' /usr/share/applications/system-update.desktop
+sudo sed -i '$a Exec=lxterminal -e sudo pacman -Syyu --overwrite --noconfirm' /usr/share/applications/system-update.desktop
 sudo sed -i '$a Icon=web-browser' /usr/share/applications/system-update.desktop
 sudo sed -i '$a Type=Application' /usr/share/applications/system-update.desktop
 sudo sed -i '$a Name=Aktualizacja' /usr/share/applications/system-update.desktop
