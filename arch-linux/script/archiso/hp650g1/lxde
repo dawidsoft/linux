@@ -120,7 +120,7 @@ sudo sed -i '$a OnlyShowIn=LXDE;' /usr/share/applications/lxdm-config.desktop
 
 sudo sed -i '1w /usr/share/applications/system-update.desktop' /usr/share/applications/ghex.desktop
 sudo sed -i '$a Comment=aktualizacja systemu' /usr/share/applications/system-update.desktop
-sudo sed -i '$a Exec=lxterminal -e sudo pacman -Syyu --overwrite --noconfirm' /usr/share/applications/system-update.desktop
+sudo sed -i '$a Exec=lxterminal -e sudo pacman -Syyu --force --noconfirm' /usr/share/applications/system-update.desktop
 sudo sed -i '$a Icon=web-browser' /usr/share/applications/system-update.desktop
 sudo sed -i '$a Type=Application' /usr/share/applications/system-update.desktop
 sudo sed -i '$a Name=Aktualizacja' /usr/share/applications/system-update.desktop
