@@ -15,7 +15,7 @@ sudo pacman -Sy archlinux-keyring --noconfirm
 sudo pacman -Syyu --noconfirm
 
 # instalacja serwera xorg
-sudo pacman -S --noconfirm xorg xf86-video-intel xf86-input-evdev xf86-input-synaptics ttf-dejavu ttf-liberation mesa-vdpau lib32-mesa-vdpau intel-ucode broadcom-wl-dkms
+sudo pacman -S --noconfirm xorg xf86-video-intel xf86-input-evdev xf86-input-synaptics ttf-dejavu ttf-liberation mesa-vdpau lib32-mesa-vdpau intel-ucode
 # sudo pacman -S --noconfirm nvidia-lts lib32-nvidia-utils nvidia-settings
 # sudo pacman -S --noconfirm xf86-video-amdgpu xf86-video-ati
 
