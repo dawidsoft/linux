@@ -1,12 +1,10 @@
 #!/bin/bash
 mkdir -p /tmp/aur/
 sudo rm -rf /var/lib/pacman/sync/dawidsoft.db
-yaourt -Sb --export /tmp/aur/ google-chrome chromium-widevine virtualbox-ext-oracle skypeforlinux-stable-bin --noconfirm
+yaourt -Sb --export /tmp/aur/ google-chrome chromium-widevine virtualbox-ext-oracle --noconfirm
 rm -rf ~/github/linux/arch-linux/package/x86_64/virtualbox-ext-oracle*
 rm -rf ~/github/linux/arch-linux/package/x86_64/google-chrome*
-rm -rf ~/github/linux/arch-linux/package/x86_64/chrome-remote-desktop*
 rm -rf ~/github/linux/arch-linux/package/x86_64/chromium-widevine*
-rm -rf ~/github/linux/arch-linux/package/x86_64/skypeforlinux-stable-bin*
 cp -r /tmp/aur/*.pkg.tar.xz ~/github/linux/arch-linux/package/x86_64/
 rm -rf /tmp/aur/
 cd ~/github/linux/arch-linux/package/x86_64/
