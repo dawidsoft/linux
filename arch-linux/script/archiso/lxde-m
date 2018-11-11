@@ -111,3 +111,4 @@ sudo ln -sf /usr/lib/libnetpbm.so /usr/lib/libnetpbm.so.10
 sudo ln -sf /usr/lib/libreadline.so.7 /usr/lib/libreadline.so.6
 sudo ln -sf /usr/lib32/libssl.so /usr/lib32/libssl.so.1.0.0
 sudo ln -sf /usr/lib32/libcrypto.so /usr/lib32/libcrypto.so.1.0.0
+sudo ln -sf /usr/lib/libboost_program_options.so /usr/lib/libboost_program_options.so.1.60.0
