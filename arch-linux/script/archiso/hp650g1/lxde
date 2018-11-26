@@ -16,7 +16,7 @@ sudo pacman -Syyu --noconfirm
 
 # instalacja serwera xorg
 sudo pacman -S --noconfirm xorg xf86-video-intel xf86-input-evdev xf86-input-synaptics ttf-dejavu ttf-liberation mesa-vdpau lib32-mesa-vdpau intel-ucode
-# sudo pacman -S --noconfirm nvidia-lts lib32-nvidia-utils nvidia-settings
+# sudo pacman -S --noconfirm nvidia-lts lib32-nvidia-utils nvidia-settings libvdpau-va-gl
 # sudo pacman -S --noconfirm xf86-video-amdgpu xf86-video-ati
 
 # instalacja lxde surowe i siec
@@ -24,7 +24,7 @@ sudo pacman -S --noconfirm lxde gnome-keyring network-manager-applet networkmana
 sudo pacman -S --noconfirm gvfs gvfs-nfs gvfs-mtp gvfs-afc gvfs-gphoto2 gvfs-smb gvfs-google cups xscreensaver gnome-screenshot oxygen-icons openvpn openssh nmap
 
 # pozastale wymagane pakiety lxde
-sudo pacman -S --noconfirm lib32-libcanberra lib32-alsa-plugins lib32-gtk2 lib32-libcups
+sudo pacman -S --noconfirm lib32-libcanberra lib32-alsa-plugins lib32-gtk2 lib32-libcups 
 sudo pacman -S --noconfirm lxshortcut galculator obconf xfce4-notifyd gnome-disk-utility hardinfo git subversion sshfs hdparm 
 sudo pacman -S --noconfirm xfce4-power-manager firefox-i18n-pl vlc kodi qt4 audacious ghex evince samba brasero youtube-dl pingus docker
 sudo pacman -S --noconfirm pulseaudio pulseaudio-alsa pavucontrol catfish gthumb wammu libreoffice-fresh-pl sopcast gksu inxi telegram-desktop
