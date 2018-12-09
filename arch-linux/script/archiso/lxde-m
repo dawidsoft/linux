@@ -65,7 +65,7 @@ sudo pacman -S --noconfirm b43-fwcutter findutils asciidoc mercurial
 
 # AUR od dawidsoft github
 sudo pacman -S --noconfirm atari800 downgrade f3 gigolo gnome-exe-thumbnailer gnurobbo google-chrome yaourt samsung-unified-driver lib32-gperftools
-sudo pacman -S --noconfirm package-query n2n-git haguichi logmein-hamachi sopcast-player ttf-ms-fonts
+sudo pacman -S --noconfirm package-query n2n-git haguichi logmein-hamachi ttf-ms-fonts
 
 # ustawienia systemu
 #sudo sed -i '$a en_US.UTF-8 UTF-8' /etc/locale.gen
