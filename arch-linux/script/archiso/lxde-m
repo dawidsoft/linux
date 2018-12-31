@@ -30,7 +30,7 @@ sudo pacman -Rns --noconfirm libreoffice-fresh vlc-nightly
 # instalacja serwera xorg
 sudo pacman -S --noconfirm xorg xf86-video-intel xf86-input-evdev xf86-input-synaptics ttf-dejavu ttf-liberation mesa-vdpau lib32-mesa-vdpau intel-ucode
 # sudo pacman -S --noconfirm nvidia-lts lib32-nvidia-utils nvidia-settings
-# sudo pacman -S --noconfirm xf86-video-amdgpu xf86-video-ati
+# sudo pacman -S --noconfirm xf86-video-amdgpu xf86-video-ati linux419-headers
 
 # instalacja lxde surowe i siec
 sudo pacman -S --noconfirm lxde gnome-keyring network-manager-applet networkmanager networkmanager-openvpn modemmanager leafpad blueman arc-gtk-theme gnome-themes-standard
@@ -44,7 +44,7 @@ sudo pacman -S --noconfirm pulseaudio pulseaudio-alsa pavucontrol catfish gthumb
 sudo pacman -S --noconfirm zip unzip unrar ntfsprogs p7zip chromium gparted simple-scan system-config-printer libusb-compat
 sudo pacman -S --noconfirm flashplugin gtk-engines gtk-engine-murrine cpio zenity bash-completion gnome-system-monitor screenfetch mc
 sudo pacman -S --noconfirm xdg-user-dirs xdg-user-dirs-gtk gucharmap ffmpegthumbnailer tumbler libgsf raw-thumbnailer pulseaudio-bluetooth
-sudo pacman -S --noconfirm virtualbox linux414-virtualbox-host-modules virtualbox-ext-oracle virtualbox-guest-iso vinagre x11vnc pepper-flash
+sudo pacman -S --noconfirm virtualbox linux419-virtualbox-host-modules virtualbox-ext-oracle virtualbox-guest-iso vinagre x11vnc pepper-flash
 sudo pacman -S --noconfirm seamonkey uget gst-plugins-base gst-plugins-bad gst-plugins-good gst-plugins-ugly yarn thunar gftp
 # winetricks comctl32
 # winetricks vb6run
