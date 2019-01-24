@@ -1,0 +1,116 @@
+#!/bin/bash
+
+rm -rf .cache
+ln -sf /tmp .cache
+# sudo rm -rf /var/cache/pacman/pkg
+# sudo ln -sf /tmp /var/cache/pacman/pkg
+
+sudo pacman-mirrors --country Poland --api --set-branch stable && sudo pacman -Syy
+
+sudo passwd -d adamo
+sudo groupadd vboxusers
+sudo groupadd lpadmin
+sudo groupadd sudo
+sudo usermod -G audio,disk,network,optical,power,storage,video,rfkill,sudo,lp,lpadmin,scanner,vboxusers,uucp,wheel,sys,autologin adamo
+
+#sudo pacman -U --noconfirm https://mirror.linux.pizza/manjaro/stable/core/x86_64/pacman-mirrors-4.12.6-1-any.pkg.tar.xz
+#sudo pacman -U --noconfirm https://mirror.linux.pizza/manjaro/stable/core/x86_64/manjaro-keyring-20180607-1-any.pkg.tar.xz
+
+# konfiguracja pacmana
+#sudo sed -i '$a [multilib]' /etc/pacman.conf
+#sudo sed -i '$a Include = /etc/pacman.d/mirrorlist' /etc/pacman.conf
+sudo sed -i '$a [dawidsoft]' /etc/pacman.conf
+sudo sed -i '$a SigLevel = Never' /etc/pacman.conf
+sudo sed -i '$a Server = https://github.com/dawidsoft/linux/raw/master/arch-linux/package/$arch' /etc/pacman.conf
+#sudo pacman -Sy archlinux-keyring manjaro-keyring --noconfirm
+sudo pacman -Syyu --noconfirm
+
+#sudo pacman -S --noconfirm memtest86+ os-prober smartmontools
+
+sudo pacman -Rns --noconfirm libreoffice-fresh vlc-nightly
+
+# instalacja serwera xorg
+sudo pacman -S --noconfirm xorg xf86-video-intel xf86-input-evdev xf86-input-synaptics ttf-dejavu ttf-liberation mesa-vdpau lib32-mesa-vdpau intel-ucode
+# sudo pacman -S --noconfirm nvidia-lts lib32-nvidia-utils nvidia-settings
+# sudo pacman -S --noconfirm xf86-video-amdgpu xf86-video-ati linux419-headers
+
+# instalacja lxde surowe i siec
+sudo pacman -S --noconfirm lxde gnome-keyring network-manager-applet networkmanager networkmanager-openvpn modemmanager leafpad blueman arc-gtk-theme gnome-themes-standard
+sudo pacman -S --noconfirm gvfs gvfs-nfs gvfs-mtp gvfs-afc gvfs-gphoto2 gvfs-smb gvfs-google cups xscreensaver gnome-screenshot oxygen-icons openvpn openssh nmap
+
+# pozastale wymagane pakiety lxde
+sudo pacman -S --noconfirm lib32-libcanberra lib32-alsa-plugins lib32-gtk2 lib32-libcups manjaro-firmware xfce4-clipman-plugin
+sudo pacman -S --noconfirm lxshortcut obconf xfce4-notifyd gnome-disk-utility hardinfo git subversion sshfs hdparm 
+sudo pacman -S --noconfirm xfce4-power-manager firefox-i18n-pl vlc kodi qt4 audacious ghex evince samba brasero youtube-dl pingus docker
+sudo pacman -S --noconfirm pulseaudio pulseaudio-alsa pavucontrol catfish gthumb wammu libreoffice-still-pl inxi telegram-desktop
+sudo pacman -S --noconfirm zip unzip unrar ntfsprogs p7zip chromium gparted simple-scan system-config-printer libusb-compat
+sudo pacman -S --noconfirm flashplugin gtk-engines gtk-engine-murrine cpio zenity bash-completion gnome-system-monitor screenfetch mc
+sudo pacman -S --noconfirm xdg-user-dirs xdg-user-dirs-gtk gucharmap ffmpegthumbnailer tumbler libgsf raw-thumbnailer pulseaudio-bluetooth
+sudo pacman -S --noconfirm virtualbox linux419-virtualbox-host-modules virtualbox-ext-oracle virtualbox-guest-iso vinagre x11vnc pepper-flash
+sudo pacman -S --noconfirm seamonkey uget gst-plugins-base gst-plugins-bad gst-plugins-good gst-plugins-ugly yarn thunar gftp
+# winetricks comctl32
+# winetricks vb6run
+
+# life CD
+#sudo pacman -S --noconfirm arch-install-scripts archiso
+
+# instalacja wine
+sudo pacman -S --noconfirm wine wine_gecko wine-mono winetricks playonlinux
+sudo pacman -S --noconfirm lib32-mesa lib32-alsa-lib lib32-libpulse lib32-openal
+sudo pacman -S --noconfirm lib32-libxml2 lib32-mpg123 lib32-lcms2 lib32-giflib lib32-libpng lib32-gnutls
+sudo pacman -S --noconfirm lib32-v4l-utils opencl-icd-loader lib32-opencl-icd-loader lib32-gst-plugins-base-libs dosbox
+
+# pakiety do kompilacji
+sudo pacman -S --noconfirm subversion asciidoc bash bc binutils bzip2 fastjar flex git gcc util-linux gawk intltool zlib make ncurses
+sudo pacman -S --noconfirm openssl patch perl-extutils-makemaker rsync sdcc unzip wget gettext libxslt boost libusb bin86 sharutils
+sudo pacman -S --noconfirm b43-fwcutter findutils asciidoc mercurial
+
+# AUR od dawidsoft github
+sudo pacman -S --noconfirm atari800 downgrade f3 gigolo gnome-exe-thumbnailer gnurobbo google-chrome yaourt samsung-unified-driver lib32-gperftools
+sudo pacman -S --noconfirm package-query n2n-git haguichi logmein-hamachi ttf-ms-fonts sopcast-player
+
+# ustawienia systemu
+#sudo sed -i '$a en_US.UTF-8 UTF-8' /etc/locale.gen
+#sudo sed -i '$a pl_PL.UTF-8 UTF-8' /etc/locale.gen
+#sudo locale-gen
+sudo hostnamectl set-hostname HP-640-g1
+#sudo localectl set-locale LANG="pl_PL.UTF-8"
+#sudo localectl set-keymap pl
+#sudo localectl set-x11-keymap pl
+#sudo timedatectl set-timezone Europe/Warsaw
+#sudo timedatectl set-ntp true
+#sudo sed -i '/autologin=dgod/a autologin=hp' /etc/lxdm/lxdm.conf
+#sudo sed -i 's/SystemGroup sys root/SystemGroup lpadmin/g' /etc/cups/cups-files.conf
+sudo sed -i '/MAKEFLAGS/a MAKEFLAGS="-j3"' /etc/makepkg.conf
+
+# uruchomienie uslug przy starcie
+#sudo systemctl disable dhcpcd.service
+#sudo systemctl enable lxdm.service
+#sudo systemctl enable NetworkManager.service
+#sudo systemctl enable ModemManager.service
+#sudo systemctl enable bluetooth.service
+sudo systemctl enable org.cups.cupsd.socket
+sudo systemctl enable sshd.socket
+
+#sudo cp /usr/share/applications/xfce4-notifyd-config.desktop /usr/share/applications/lxde-notifyd-config.desktop
+#sudo sed -i '/OnlyShowIn=XFCE;/a OnlyShowIn=LXDE;' /usr/share/applications/lxde-notifyd-config.desktop
+
+#sudo cp /usr/share/X11/xorg.conf.d/40-libinput.conf /etc/X11/xorg.conf.d/40-libinput.conf
+#sudo sed -i '20s/libinput/synaptics/' /etc/X11/xorg.conf.d/40-libinput.conf
+
+sudo sed -i '1w /usr/share/applications/atari800.desktop' /usr/share/applications/ghex.desktop
+sudo sed -i '$a Comment=atari800 emulator' /usr/share/applications/atari800.desktop
+sudo sed -i '$a Exec=atari800' /usr/share/applications/atari800.desktop
+sudo sed -i '$a Icon=input-keyboard' /usr/share/applications/atari800.desktop
+sudo sed -i '$a Type=Application' /usr/share/applications/atari800.desktop
+sudo sed -i '$a Name=ATARI800' /usr/share/applications/atari800.desktop
+sudo sed -i '$a GenericName=ATARI800' /usr/share/applications/atari800.desktop
+sudo sed -i '$a Categories=Game;' /usr/share/applications/atari800.desktop
+
+mkdir -p .config/autostart
+
+sudo ln -sf /usr/lib/libnetpbm.so /usr/lib/libnetpbm.so.10
+sudo ln -sf /usr/lib/libreadline.so.7 /usr/lib/libreadline.so.6
+sudo ln -sf /usr/lib32/libssl.so /usr/lib32/libssl.so.1.0.0
+sudo ln -sf /usr/lib32/libcrypto.so /usr/lib32/libcrypto.so.1.0.0
+sudo ln -sf /usr/lib/libboost_program_options.so /usr/lib/libboost_program_options.so.1.60.0
