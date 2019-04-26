@@ -1,24 +1,25 @@
-# Maintainer: carstene1ns <arch carsten-teibes de> - http://git.io/ctPKG
+# Maintainer: Stephen Brandt <stephen@stephenbrandt.com>
+# Contributor: carstene1ns <arch carsten-teibes de> - http://git.io/ctPKG
 
 pkgname=haguichi
-pkgver=1.3.7
+pkgver=1.4.1
 pkgrel=1
 pkgdesc="Provides a user friendly GUI to control the Hamachi client on Linux"
-arch=('x86_64' 'i686' 'arm' 'armv7h')
-url="http://www.haguichi.net"
+arch=('x86_64' 'i686' 'arm' 'armv6h' 'armv7h')
+url="https://www.haguichi.net"
 license=('GPL3')
-depends=('gtk3' 'libnotify' 'logmein-hamachi')
-makedepends=('cmake' 'vala')
+depends=('gtk3' 'libappindicator-gtk3' 'libnotify' 'logmein-hamachi')
+makedepends=('meson' 'vala')
 source=("http://launchpad.net/$pkgname/${pkgver%.*}/$pkgver/+download/$pkgname-$pkgver.tar.xz")
-sha256sums=('e769b81a8de9932ea42d0a21431e6c1440ef638472d68ab2d5bebab9c728cfbc')
+sha256sums=('4ace875a5db85b3df17ac733de67f64213c82ac41af287e3cb9bc33c4a342af7')
 
 prepare() {
   cd $pkgname-$pkgver
 
-  sed -i '/OnlyShowIn/s/$/LXDE;/' data/haguichi-autostart.desktop
-  sed -i '$a X-LXDE-Autostart-enabled=false' data/haguichi-autostart.desktop
-  sed -i 's/false/true/g' data/haguichi-autostart.desktop
-  sed -i '/Terminal/s/true/false/' data/haguichi-autostart.desktop
+  sed -i '/OnlyShowIn/s/$/LXDE;/' data/com.github.ztefn.haguichi.autostart.desktop.in.in
+  sed -i '$a X-LXDE-Autostart-enabled=false' data/com.github.ztefn.haguichi.autostart.desktop.in.in
+  sed -i 's/false/true/g' data/com.github.ztefn.haguichi.autostart.desktop.in.in
+  sed -i '/Terminal/s/true/false/' data/com.github.ztefn.haguichi.autostart.desktop.in.in
 
   rm -rf build
   mkdir build
@@ -27,10 +28,10 @@ prepare() {
 build() {
   cd $pkgname-$pkgver/build
 
-  cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DICON_UPDATE=OFF -DGSETTINGS_COMPILE=OFF
-  make
+  meson -Denable-appindicator=true ..
+  ninja
 }
 
 package() {
-  make -C $pkgname-$pkgver/build DESTDIR="$pkgdir" install
+  DESTDIR="$pkgdir" ninja -C $pkgname-$pkgver/build install
 }
