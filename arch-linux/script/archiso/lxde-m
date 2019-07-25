@@ -5,6 +5,8 @@ ln -sf /tmp .cache
 # sudo rm -rf /var/cache/pacman/pkg
 # sudo ln -sf /tmp /var/cache/pacman/pkg
 
+sudo pacman-mirrors --country Poland --api --set-branch stable && sudo pacman -Syy
+
 sudo passwd -d hp
 sudo groupadd vboxusers
 sudo groupadd lpadmin
